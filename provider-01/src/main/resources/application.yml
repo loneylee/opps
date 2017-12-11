@@ -1,0 +1,42 @@
+server:
+  port: 8180
+  tomcat:
+    max-connections: 300
+    max-threads: 1000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8701/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+
+spring:
+  application:
+    name: provider01
+  datasource:
+    name: carservicedev
+    url: jdbc:mysql://121.199.9.229:3307/wic?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  session:
+    store-type: none
+  freemarker:
+    check-template-location: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  config-location: classpath:mybatis-configuration.xml
+
+security:
+    basic:
+      enabled: false
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
